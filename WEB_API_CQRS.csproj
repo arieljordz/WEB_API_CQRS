@@ -32,7 +32,6 @@
     <Folder Include="src\Domain\ValueObjects\" />
     <Folder Include="src\Infrastructure\Mappings\" />
     <Folder Include="src\Infrastructure\Services\" />
-    <Folder Include="src\WebApi\Controllers\" />
     <Folder Include="tests\IntegrationTests\" />
   </ItemGroup>
 

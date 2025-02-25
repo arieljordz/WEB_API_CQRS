@@ -1,37 +1,33 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using WEB_API_CQRS.src.Application.Commands.Employees;
-using WEB_API_CQRS.src.Application.Commands.Products;
-using WEB_API_CQRS.src.Application.Queries;
-using WEB_API_CQRS.src.Application.Queries.Products;
+using WEB_API_CQRS.src.Application.Queries.Employees;
 using WEB_API_CQRS.src.Domain.Entities;
 
 namespace WEB_API_CQRS.src.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public ProductController(IMediator mediator)
+        public EmployeeController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetAll()
+        public async Task<ActionResult<List<Employee>>> GetAll()
         {
-            var products = await _mediator.Send(new GetAllProductsQuery());
+            var products = await _mediator.Send(new GetAllEmployeesQuery());
             return Ok(products);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var product = await _mediator.Send(new GetProductQuery { Id = id });
+            var product = await _mediator.Send(new GetEmployeeQuery { Id = id });
             return product == null ? NotFound() : Ok(product);
         }
 
@@ -42,7 +38,7 @@ namespace WEB_API_CQRS.src.WebApi.Controllers
 
             if (product == null)
             {
-                return BadRequest("Failed to create the product.");
+                return BadRequest("Failed to create the employee.");
             }
 
             return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
@@ -56,8 +52,8 @@ namespace WEB_API_CQRS.src.WebApi.Controllers
                 return BadRequest("ID in URL and request body must match.");
             }
 
-            var updatedProduct = await _mediator.Send(command);
-            return updatedProduct == null ? NotFound() : NoContent();
+            var updatedEmployee = await _mediator.Send(command);
+            return updatedEmployee == null ? NotFound() : NoContent();
         }
 
         [HttpDelete("{id}")]

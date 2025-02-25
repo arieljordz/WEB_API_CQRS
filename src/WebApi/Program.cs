@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using WEB_API_CQRS.src.Application.Commands;
+using WEB_API_CQRS.src.Application.Commands.Products;
 using WEB_API_CQRS.src.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);

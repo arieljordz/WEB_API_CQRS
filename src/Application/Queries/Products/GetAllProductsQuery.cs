@@ -1,12 +1,9 @@
 ﻿using MediatR;
 using MongoDB.Driver;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using WEB_API_CQRS.src.Domain.Entities;
 using WEB_API_CQRS.src.Infrastructure.Persistence;
 
-namespace WEB_API_CQRS.src.Application.Queries
+namespace WEB_API_CQRS.src.Application.Queries.Products
 {
     public class GetAllProductsQuery : IRequest<List<Product>> { }
 

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using WEB_API_CQRS.src.Domain.Entities;
 using WEB_API_CQRS.src.Infrastructure.Persistence;
 
-namespace WEB_API_CQRS.src.Application.Commands
+namespace WEB_API_CQRS.src.Application.Commands.Products
 {
     public class CreateProductCommand : IRequest<Product>
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public decimal Price { get; set; }
     }
 
@@ -24,7 +24,7 @@ namespace WEB_API_CQRS.src.Application.Commands
 
         public async Task<Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var productsCollection = _context.GetCollection<Product>("Products");
+            var collection = _context.GetCollection<Product>("Products");
 
             var newProduct = new Product
             {
@@ -32,7 +32,7 @@ namespace WEB_API_CQRS.src.Application.Commands
                 Price = request.Price
             };
 
-            await productsCollection.InsertOneAsync(newProduct, cancellationToken: cancellationToken);
+            await collection.InsertOneAsync(newProduct, cancellationToken: cancellationToken);
             return newProduct;
         }
     }

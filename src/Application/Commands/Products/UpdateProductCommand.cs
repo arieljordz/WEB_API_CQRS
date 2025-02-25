@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using WEB_API_CQRS.src.Domain.Entities;
 using WEB_API_CQRS.src.Infrastructure.Persistence;
 
-namespace WEB_API_CQRS.src.Application.Commands
+namespace WEB_API_CQRS.src.Application.Commands.Products
 {
     public class UpdateProductCommand : IRequest<Product>
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public string Id { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public decimal Price { get; set; }
     }
 
@@ -25,13 +25,13 @@ namespace WEB_API_CQRS.src.Application.Commands
 
         public async Task<Product> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-            var productsCollection = _context.GetCollection<Product>("Products");
+            var collection = _context.GetCollection<Product>("Products");
 
             var updateDefinition = Builders<Product>.Update
                 .Set(p => p.Name, request.Name)
                 .Set(p => p.Price, request.Price);
 
-            var updatedProduct = await productsCollection.FindOneAndUpdateAsync(
+            var updatedProduct = await collection.FindOneAndUpdateAsync(
                 p => p.Id == request.Id,
                 updateDefinition,
                 new FindOneAndUpdateOptions<Product> { ReturnDocument = ReturnDocument.After },

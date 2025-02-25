@@ -1,15 +1,13 @@
 ﻿using MediatR;
 using MongoDB.Driver;
-using System.Threading;
-using System.Threading.Tasks;
 using WEB_API_CQRS.src.Domain.Entities;
 using WEB_API_CQRS.src.Infrastructure.Persistence;
 
-namespace WEB_API_CQRS.src.Application.Queries
+namespace WEB_API_CQRS.src.Application.Queries.Products
 {
     public class GetProductQuery : IRequest<Product>
     {
-        public string Id { get; set; } // Change from int to string for MongoDB ObjectId
+        public string Id { get; set; } = string.Empty;
     }
 
     public class GetProductQueryHandler : IRequestHandler<GetProductQuery, Product>
